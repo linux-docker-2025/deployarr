@@ -1,0 +1,19 @@
+---
+- name: Download and run deployarr_v5.0.1.app
+  hosts: all
+  become: yes
+  tasks:
+    - name: Download the deployarr_v5.0.1.app file
+      ansible.builtin.get_url:
+        url: "https://raw.githubusercontent.com/anandslab/deployarr/main/deployarr_v5.0.1.app"
+        dest: "/tmp/deployarr_v5.0.1.app"
+    
+    - name: Make the file executable
+      ansible.builtin.file:
+        path: "/tmp/deployarr_v5.0.1.app"
+        mode: '0755'
+    
+    - name: Run the deployarr_v5.0.1.app file
+      ansible.builtin.command: "./deployarr_v5.0.1.app"
+      args:
+        chdir: /tmp
